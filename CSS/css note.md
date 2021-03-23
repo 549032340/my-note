@@ -1,0 +1,1 @@
+- 子盒子使用float之后造成父盒子塌陷，父盒子使用overflow:none消除
