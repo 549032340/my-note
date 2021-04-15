@@ -80,7 +80,9 @@
     if (func.prototype) {
       console.log('普通函数');
       const param = paramReg.exec(funcString);
+      console.log(param, 'paramReg');
       const body = bodyReg.exec(funcString);
+      console.log(body, 'bodyReg');
       if (body) {
         console.log('匹配到函数体：', body[0]);
         if (param) {
@@ -113,6 +115,8 @@
         return cloneReg(target);
       case symbolTag:
         return cloneSymbol(target);
+      case funcTag:
+        return cloneFunction(target);
       default:
         return null;
     }
@@ -167,15 +171,15 @@
 
     // 克隆对象和数组
     // // for in 版
-    // for (const key in target) {
-    //   copy[key] = cloneDeep(target[key], map);
-    // }
-    // // 自定义forEach 版
-    const keys = type === arrayTag ? undefined : Object.keys(target);
-    forEach(keys || target, (value, key) => {
-      if (keys) key = value;
+    for (const key in target) {
       copy[key] = cloneDeep(target[key], map);
-    })
+    }
+    // // 自定义 forEach 版
+    // const keys = type === arrayTag ? undefined : Object.keys(target);
+    // forEach(keys || target, (value, key) => {
+    //   if (keys) key = value;
+    //   copy[key] = cloneDeep(target[key], map);
+    // })
     return copy;
   }
 
@@ -193,12 +197,12 @@
     field5: new Date(),
     field6: new RegExp(),
     field7: Symbol('field'),
-    field8: {},
+    field8: new Function()
   }
   obj.field9 = obj;
-  // console.time();
+  console.time();
   console.log(cloneDeep(obj));
-  // console.timeEnd();
+  console.timeEnd();
 </script>
 
 </html>
