@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>大数运算</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  function minusString(a, b) {
+    a = a.split('');
+    b = b.split('');
+    var aMaxb = a.length > b.length; // 标记A是否大于B
+    if (a.length == b.length) {
+      for (var i = 0, len = a.length; i < len; i++) {
+        if (a[i] == b[i]) continue;
+        aMaxb = a[i] > b[i];
+        break;
+      }
+    }
+    if (!aMaxb) {
+      console.log(a, b);
+      // a = [b, b = a][0]; // 只要A不比B大都交换
+      [a, b] = [b, a];
+      console.log(a, b);
+    }
+    var result = '';
+    while (a.length) {
+      var temp = parseInt(a.pop()) - parseInt(b.pop() || 0);
+      if (temp >= 0) {
+        result = temp + result;
+      } else {
+        result = temp + 10 + result;
+        a[a.length - 1]--; // 由于已经保证了a一定大于等于b，所以不存在a[i-1]为undefined的情况
+      }
+    }
+    var resultEnd = (aMaxb ? '' : '-') + result.replace(/^0*/g, ''); // 去掉前面可能的无效0
+    if (resultEnd === '-') {
+      resultEnd = '0'
+    }
+    return resultEnd;
+  }
+  console.log(minusString('99999999999999992', '100000000000000000')); //"-8"
+</script>
+
+</html>
