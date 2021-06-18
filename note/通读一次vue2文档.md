@@ -97,3 +97,100 @@
 ##### 组件
 
 - **一个组件的 `data` 选项必须是一个函数**，因此每个实例可以维护一份被返回对象的独立的拷贝
+
+- 组件名大小写
+
+  - 当使用 kebab-case (短横线分隔命名) 定义一个组件时，你也必须在引用这个自定义元素时使用 kebab-case，例如 `<my-component-name>`
+  - 当使用 PascalCase (首字母大写命名) 定义一个组件时，你在引用这个自定义元素时两种命名法都可以使用。也就是说 `<my-component-name>` 和 `<MyComponentName>` 都是可接受的。注意，尽管如此，直接在 DOM (即非字符串的模板) 中使用时只有 kebab-case 是有效的。
+
+- 组件的自动化全局注册
+
+  - 使用了webpack的`require.context`获取组件名称列表，然后统一循环注册到vue中
+
+- 组件传参校验
+
+  ```js
+  props:{
+  	// 自定义验证函数
+    	// 当 prop 验证失败的时候，(开发环境构建版本的) Vue 将会产生一个控制台的警告。 
+      propF: {
+        validator: function (value) {
+          // 这个值必须匹配下列字符串中的一个
+          return ['success', 'warning', 'danger'].indexOf(value) !== -1
+        }
+      }
+  }
+  ```
+
+- 组件上添加非Prop的Attribute
+
+  - 比如给组件添加一个class类名
+
+  - 对于绝大多数 attribute 来说，从外部提供给组件的值会替换掉组件内部设置好的值。
+
+  - `class` 和 `style` attribute 会稍微智能一些，即两边的值会被合并起来
+
+  - 如果你不希望组件的根元素继承 attribute，你可以在组件的选项中设置 `inheritAttrs: false`
+
+    ```js
+    Vue.component('my-component', {
+      inheritAttrs: false,
+      // ...
+    })
+    ```
+
+    - `inheritAttrs: false` 选项不会影响 `style` 和 `class` 的绑定。
+
+- 组件的自定义事件名称
+
+    - `v-on` 事件监听器在 DOM 模板中会被自动转换为全小写 (因为 HTML 是大小写不敏感的)，所以 `v-on:myEvent` 将会变成 `v-on:myevent`——导致 `myEvent` 不可能被监听到。
+    - 推荐**始终使用 kebab-case 的事件名**
+    
+- 将原生事件绑定到组件 - `$listeners`
+
+- 动态组件
+
+- 异步组件
+
+##### 插槽
+
+- 具名插槽及缩写
+- 插槽 prop及解构
+
+##### 组件通信
+
+- props
+
+- provide/inject
+
+  ```js
+  // 发送数据的组件
+  provide: function () {
+    return {
+      getMap: 'test'
+    }
+  }
+  
+  // 接受数据的组件
+  injiect:['getMap']
+  ```
+
+  
+
+##### 强制更新组件
+
+- 通过改变v-for中的:key
+- this.$forceUpdate
+
+##### 进入/离开 & 列表过渡
+
+- 封装组件 transition
+- property: name(模式)
+- 过渡的类名
+  - v-enter
+  - v-enter-active
+  - v-enter-to
+  - v-leave
+  - v-leave-active
+  - v-leave-to
+
