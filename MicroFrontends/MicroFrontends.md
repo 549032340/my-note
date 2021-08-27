@@ -3,12 +3,13 @@
 ### 初识微前端
 
 - 微前端（Micro-Frontends）是一种类似于微服务的架构，它将微服务的理念应用于浏览器端，即将Web应用由单一的单体应用转变为由多个小型前端应用聚合在一起的应用。各个前端应用还可以独立运行、独立开发、独立部署。**微前端不再是单纯的前端框架或者工具，而是一套架构体系**。
+- 微前端是一种多个团队通过独立发布功能的方式来共同构建现代化 web 应用的技术手段及方法策略。
 
 ### 微前端产生的目的
 
-##### 拆分和细化
+##### 1.拆分和细化
 - 当下的前端领域，SPA是非常流行的项目形态之一，但是随着项目的完善及应用功能的丰富，SPA变得越来越庞大，越来越难以维护，往往最后就变成了改一处而动全身的局面，项目的开发、维护成本也越来越高。微前端的目的就是将庞大的应用进行拆分解耦，使得每个独立的模块可以进行单独开发、维护及部署，提升效率。
-##### 整合历史系统
+##### 2.整合历史系统
 - 在不少的业务中，或多或少的会存在一些历史项目，并且还在照常运行。现在需要将其融合到新项目中，但是由于使用的框架过于老旧，合在一起的话只能重写，浪费时间和精力。不过通过微前端将这些系统进行整合的话就可以在不修改逻辑的同时使得新老两套系统并行运行。
 
 ### 实现微前端的方案
@@ -60,11 +61,26 @@
 
 ### 微前端有哪些框架
 
-- [Mooa](https://link.zhihu.com/?target=https%3A//www.npmjs.com/package/mooa)：基于Angular的微前端服务框架
-- [Single-Spa](https://link.zhihu.com/?target=https%3A//www.npmjs.com/package/single-spa)：最早的微前端框架，兼容多种前端技术栈。
-- [Qiankun](https://link.zhihu.com/?target=https%3A//www.npmjs.com/package/qiankun)：基于Single-Spa，阿里系开源微前端框架。
-- [Icestark](https://link.zhihu.com/?target=https%3A//www.npmjs.com/package/icestark)：阿里飞冰微前端框架，兼容多种前端技术栈。
-- [Ara Framework](https://link.zhihu.com/?target=https%3A//www.npmjs.com/package/https%3A//ara-framework.github.io/website/docs/quick-start)：由服务端渲染延伸出的微前端框架。
+- [Mooa](https://www.npmjs.com/package/mooa)：基于Angular的微前端服务框架
+- [Single-Spa](https://www.npmjs.com/package/single-spa)：最早的微前端框架，兼容多种前端技术栈。
+- [Qiankun](https://www.npmjs.com/package/qiankun)：基于Single-Spa，阿里系开源微前端框架。
+- [Icestark](https://www.npmjs.com/package/icestark)：阿里飞冰微前端框架，兼容多种前端技术栈。
+- [Ara Framework](https://www.npmjs.com/package/https://ara-framework.github.io/website/docs/quick-start)：由服务端渲染延伸出的微前端框架。
+
+### 微前端架构具备以下几个核心价值：
+
+- 技术栈无关
+  主框架不限制接入应用的技术栈，微应用具备完全自主权
+
+- 独立开发、独立部署
+  微应用仓库独立，前后端可独立开发，部署完成后主框架自动完成同步更新
+
+- 增量升级
+
+  在面对各种复杂场景时，我们通常很难对一个已经存在的系统做全量的技术栈升级或重构，而微前端是一种非常好的实施渐进式重构的手段和策略
+
+- 独立运行时
+  每个微应用之间状态隔离，运行时状态不共享
 
 ### 是否要用微前端
 
@@ -78,3 +94,30 @@
    4)：线上监控和统计能力等等。
    只有将整个能力体系搭建完善，才能说是整个微前端体系流程的完善。
 3. 当发现使用微前端反而使效率变低，简单的变更复杂那就说明微前端并不适用。
+
+# QianKun 
+
+### qiankun 的核心设计理念
+
+- 🥄 简单
+
+  由于主应用微应用都能做到技术栈无关，qiankun 对于用户而言只是一个类似 jQuery 的库，你需要调用几个 qiankun 的 API 即可完成应用的微前端改造。同时由于 qiankun 的 HTML entry 及沙箱的设计，使得微应用的接入像使用 iframe 一样简单。
+
+- 🍡 解耦/技术栈无关
+
+  微前端的核心目标是将巨石应用拆解成若干可以自治的松耦合微应用，而 qiankun 的诸多设计均是秉持这一原则，如 HTML entry、沙箱、应用间通信等。这样才能确保微应用真正具备 独立开发、独立运行 的能力。
+
+
+
+
+
+
+
+
+
+
+
+### 踩坑
+
+##### 子应用接入之后接口包404
+
