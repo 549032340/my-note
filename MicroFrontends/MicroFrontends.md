@@ -107,6 +107,7 @@
 
   微前端的核心目标是将巨石应用拆解成若干可以自治的松耦合微应用，而 qiankun 的诸多设计均是秉持这一原则，如 HTML entry、沙箱、应用间通信等。这样才能确保微应用真正具备 独立开发、独立运行 的能力。
 
+  
 
 
 
@@ -119,5 +120,32 @@
 
 ### 踩坑
 
-##### 子应用接入之后接口包404
+##### 1.子应用接入之后接口报404
+
+  - 子应用的代理失效了，所有的接口请求被转移到了父应用上，所以需要给父应用添加代理
+
+##### 2.子应用请求静态资源报404
+
+  - 需要修改webpack的publicPath，直接在子应用的src目录下创建`public-path.js`文件，通过此文件修改
+
+    ```js
+    /* eslint-disable camelcase */
+    if (window.__POWERED_BY_QIANKUN__) {
+      // eslint-disable-next-line no-undef
+      __webpack_public_path__ = window.__INJECTED_PUBLIC_PATH_BY_QIANKUN__;
+    }
+    ```
+
+    
+
+##### 3.qiankun通过fetch方式获取子应用内容，fetch不支持ie,如果要在ie环境使用qiankun,需要打补丁。
+
+  - [使用 @babel/preset-env 插件完成自动引入 IE 需要的 polyfill 的能力](https://qiankun.umijs.org/zh/faq#qiankun-%E8%83%BD%E5%85%BC%E5%AE%B9-ie-%E5%90%97)
+
+
+##### 4.父应用和子应用共享cookie问题
+
+- 通过js-cookie插件进行cookie操作，在对已存在的cookie进行覆盖操作时不生效
+
+##### 5.子应用页面覆盖了父应用的页面
 
