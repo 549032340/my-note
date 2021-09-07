@@ -23,7 +23,7 @@
 
 ##### iframe嵌套实现微前端实例：
 
-![iframe](D:\__GitHub__\my-notes\MicroFrontends\image\iframe.png)
+![iframe](.\image\iframe.png)
 
 ##### 通过以上四种方案的对比可以发现，一个微前端的基座框架需要解决以下问题：
 
@@ -89,7 +89,7 @@
 - [Icestark](https://www.npmjs.com/package/icestark)：阿里飞冰微前端框架，兼容多种前端技术栈，基座主要是使用React。
 - [Ara Framework](https://www.npmjs.com/package/https://ara-framework.github.io/website/docs/quick-start)：由服务端渲染延伸出的微前端框架。
 
-# [QianKun](https://qiankun.umijs.org/zh/guide)
+# [QianKun上手](https://qiankun.umijs.org/zh/guide)
 
 
 ### 踩坑
@@ -122,4 +122,6 @@
 - 通过js-cookie插件进行cookie操作，在对已存在的cookie进行覆盖操作时不生效
 
 ##### 5.子应用页面覆盖了父应用的页面
+
+- 样式问题，子应用使用了`position: fixed`等布局覆盖了父应用的样式
 
